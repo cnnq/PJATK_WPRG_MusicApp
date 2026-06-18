@@ -1,0 +1,189 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ddd;
+}
+
+h1 {
+    margin: 0.5rem;
+}
+
+h2 {
+    margin: 0 0 1rem 0;
+}
+
+.dark {
+    color: #333;
+}
+
+.bar {
+    display: grid;
+    grid-template-columns: min-content auto;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: #333380;
+    color: #fff;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 3px 4px rgba(10, 10, 32, 0.4);
+
+    white-space: nowrap;
+    text-align: center;
+}
+
+.bar > h1 {
+    margin: 0 1em;
+    cursor: pointer;
+}
+
+.container {
+    width: 85%;
+    margin: 2rem auto;
+    background: #f0f0f0;
+    padding: 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(10, 10, 32, 0.2);
+}
+
+/* == Search form == */
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.search-form > div {
+    display: flex;
+    gap: 8px;
+}
+
+.search-form input {
+    flex-grow: 1;
+
+    background-color: #eaeaea;
+    padding: 8px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 3px rgba(10, 10, 32, 0.3);
+}
+
+.select {
+    position: relative;
+
+    background-color: #e8eaec;
+    padding: 6px;
+    border: 1px solid #aaa;
+    border-radius: 2px;
+
+    cursor: pointer;
+}
+
+.select:hover {
+    background-color: #ddd;
+}
+
+/* Pretty 3D button */
+.button-back {
+    background-color: #303070;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    outline-offset: 4px;
+}
+
+.button-front {
+    background-color: #4f4fc0;
+    display: block;
+    padding: 8px 20px;
+    color: white;
+    transform: translateY(-4px);
+    border-radius: 2px;
+    transition: transform 0.2s;
+}
+
+.button-back:hover .button-front {
+    background-color: #4040a0;
+    transform: translateY(-3px);
+}
+
+.button-back:focus .button-front {
+    background-color: #4040a0;
+    transform: translateY(-1px);
+}
+
+/* == Errors and successes == */
+.error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* == Authentication buttons == */
+.auth-buttons-fixed {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    background: #dcd4d2;
+    padding: 3px 4px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+
+    font-size: 14px;
+}
+
+.plain-button {
+    display: block;
+
+    padding: 6px 15px;
+    border: none;
+    border-radius: 2px;
+    outline-offset: 4px;
+
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: filter 0.1s;
+}
+
+.plain-button:hover {
+    filter: brightness(85%);
+}
+
+.auth-button-register {
+    background: #d0b4b2;
+    color: #744;
+}
+
+.auth-button-login {
+    background-color: #c32734;
+}
+
+.auth-button-panel {
+    background-color: #4f4fc0;
+    text-align: center;
+}
+
+.auth-button-logout {
+    background-color: #909090;
+}

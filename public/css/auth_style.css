@@ -1,0 +1,50 @@
+/* == Authentication forms == */
+.auth-container {
+    max-width: 400px;
+    margin-top: 15vh;
+}
+
+.auth-container > p {
+    margin-bottom: 0;
+}
+
+.auth-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: #484848;
+    font-size: 14px;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 3px rgba(10, 10, 32, 0.1);
+}
+
+.form-action {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0 2rem 0;
+}
+
+.auth-link {
+    color: #4f4fc0;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
