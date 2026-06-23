@@ -17,6 +17,8 @@ h2 {
     color: #333;
 }
 
+/* == Bar ==*/
+
 .bar {
     display: grid;
     grid-template-columns: min-content auto;
@@ -38,6 +40,7 @@ h2 {
     cursor: pointer;
 }
 
+/* == General container == */
 .container {
     width: 85%;
     margin: 2rem auto;
@@ -114,6 +117,10 @@ h2 {
     transform: translateY(-1px);
 }
 
+.play-button-container button {
+    width: 100%;
+}
+
 /* == Errors and successes == */
 .error-message {
     color: #721c24;
@@ -133,8 +140,8 @@ h2 {
     margin-bottom: 1rem;
 }
 
-/* == Authentication buttons == */
-.auth-buttons-fixed {
+/* == Authentication and back buttons == */
+.fixed-button-container {
     position: fixed;
     bottom: 20px;
     left: 20px;
@@ -170,20 +177,25 @@ h2 {
     filter: brightness(85%);
 }
 
-.auth-button-register {
+/* More specific styles */
+.button-register {
     background: #d0b4b2;
     color: #744;
 }
 
-.auth-button-login {
+.button-login {
     background-color: #c32734;
 }
 
-.auth-button-panel {
+.button-panel {
     background-color: #4f4fc0;
     text-align: center;
 }
 
-.auth-button-logout {
+.button-logout {
     background-color: #909090;
+}
+
+.button-go-back {
+    background-color: #4f4fc0;
 }

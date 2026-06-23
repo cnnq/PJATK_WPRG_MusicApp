@@ -1,12 +1,19 @@
 <?php
-require_once '../src/SearchService.php';
+require_once '../src/song/SearchService.php';
 require_once '../src/UIHelpers.php';
 
 session_start();
 
+// Set previous page
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_SERVER['HTTP_REFERER']) && !str_contains($_SERVER['HTTP_REFERER'], 'search.php')) {
+        $_SESSION['previous_page'] = $_SERVER['HTTP_REFERER'];
+    }
+}
+
 $search_query = isset($_GET['search-query']) ? trim($_GET['search-query']) : '';
-$search_by = isset($_GET['search-by']) ? $_GET['search-by'] : 'anything';
-$sort_by = isset($_GET['sort-by']) ? $_GET['sort-by'] : 'nothing';
+$search_by = $_GET['search-by'] ?? 'anything';
+$sort_by = $_GET['sort-by'] ?? 'nothing';
 $songs = [];
 $isRandom = false;
 
@@ -18,25 +25,16 @@ try {
         $isRandom = true;
 
     } else {
-        switch ($search_by) {
-            case 'title':
-                $songs = $searchService->searchSongsByTitle($search_query, $sort_by);
-                break;
-
-            case 'author':
-                $songs = $searchService->searchSongsByAuthor($search_query, $sort_by);
-                break;
-
-            case 'anything':
-            default:
-                $songs = $searchService->searchSongsByAnything($search_query, $sort_by);
-                break;
-        }
+        $songs = match ($search_by) {
+            'title' => $searchService->searchSongsByTitle($search_query, $sort_by),
+            'author' => $searchService->searchSongsByAuthor($search_query, $sort_by),
+            default => $searchService->searchSongsByAnything($search_query, $sort_by),
+        };
 
         $isRandom = false;
     }
 
-} catch (\Exception $e) {
+} catch (Exception $e) {
     $_SESSION["error"] = $e->getMessage();
 }
 ?>
@@ -48,7 +46,8 @@ try {
     <title>Music App</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/search_style.css">
-    <link rel="stylesheet" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="js/audio_player.js" defer></script>
 </head>
 <body>
 

@@ -160,3 +160,36 @@
 .image-upload {
     display: none;
 }
+
+/* Forms with inline labels */
+
+.inline-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.inline-form label {
+    min-width: 70px;
+}
+
+.inline-form input {
+    padding: 4px 6px;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    box-shadow: inset 0 1px 3px rgba(10, 10, 32, 0.1);
+}
+
+.inline-button {
+    border: none;
+    border-radius: 2px;
+    padding: 4px 6px;
+    background-color: #4f4fc0;
+
+    color: white;
+    cursor: pointer;
+    transition: filter 0.1s;
+}

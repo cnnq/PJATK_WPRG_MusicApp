@@ -1,12 +1,12 @@
 <?php
-require_once '../src/SearchService.php';
+require_once '../src/song/SearchService.php';
 require_once '../src/UIHelpers.php';
 
 session_start();
 
 // Set previous page
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_SERVER['HTTP_REFERER'])) {
+    if (isset($_SERVER['HTTP_REFERER']) && !str_contains($_SERVER['HTTP_REFERER'], 'index.php')) {
         $_SESSION['previous_page'] = $_SERVER['HTTP_REFERER'];
     }
 }
@@ -17,7 +17,7 @@ try {
     $searchService = SearchService::getInstance();
     $songs = $searchService->searchSongsRandomly(10);
 
-} catch (\Exception $e) {
+} catch (Exception $e) {
     $_SESSION["error"] = $e->getMessage();
 }
 ?>
@@ -29,7 +29,8 @@ try {
     <title>Music App</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/search_style.css">
-    <link rel="stylesheet" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="js/audio_player.js" defer></script>
     <style>
         #outer-box {
             display: flex;

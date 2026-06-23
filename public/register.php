@@ -1,11 +1,11 @@
 <?php
-require_once '../src/UserService.php';
+require_once '../src/user/UserService.php';
 
 session_start();
 
 // Set previous page
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_SERVER['HTTP_REFERER'])) {
+    if (isset($_SERVER['HTTP_REFERER']) && !str_contains($_SERVER['HTTP_REFERER'], 'register.php')) {
         $_SESSION['previous_page'] = $_SERVER['HTTP_REFERER'];
     }
 }
@@ -17,22 +17,22 @@ $email = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nick = isset($_POST['nick']) ? $_POST['nick'] : '';
-    $name = isset($_POST['name']) ? $_POST['name'] : '';
-    $surname = isset($_POST['surname']) ? $_POST['surname'] : '';
-    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $nick = $_POST['nick'] ?? '';
+    $name = $_POST['name'] ?? '';
+    $surname = $_POST['surname'] ?? '';
+    $email = $_POST['email'] ?? '';
 
     try {
         $userService = UserService::getInstance();
         $userService->registerUser($_POST['nick'], $_POST['email'], $_POST['name'], $_POST['surname'], $_POST['password'], $_POST['confirm_password']);
 
         // Return to the previous page
-        $redirectUrl = isset($_SESSION['register_referer']) ? $_SESSION['register_referer'] : 'index.php';
+        $redirectUrl = $_SESSION['register_referer'] ?? 'index.php';
         unset($_SESSION['register_referer']);
         header('Location: ' . $redirectUrl);
         exit();
 
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $_SESSION["error"] = $e->getMessage();
     }
 }
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Register - Music App</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/auth_style.css">
-    <link rel="stylesheet" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="button-front">Register</span>
             </button>
         </div>
-        <a href="index.php" class="auth-link"><span class="fa fa-arrow-left" aria-hidden="true"></span> Back to Home</a>
+        <a href="<?php echo isset($_SESSION['previous_page']) ? htmlspecialchars($_SESSION['previous_page']) : 'index.php'; ?>" class="auth-link"><span class="fa fa-arrow-left" aria-hidden="true"></span> Go back</a>
     </form>
     <p>Already have an account? <a href="login.php">Login here</a></p>
 </div>

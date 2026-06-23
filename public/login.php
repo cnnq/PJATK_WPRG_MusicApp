@@ -1,11 +1,11 @@
 <?php
-require_once '../src/UserService.php';
+require_once '../src/user/UserService.php';
 
 session_start();
 
 // Set previous page
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (isset($_SERVER['HTTP_REFERER'])) {
+    if (isset($_SERVER['HTTP_REFERER']) && !str_contains($_SERVER['HTTP_REFERER'], 'login.php')) {
         $_SESSION['previous_page'] = $_SERVER['HTTP_REFERER'];
     }
 }
@@ -21,12 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userService->loginUser($nickOrEmail, $_POST['password']);
 
         // Return to the previous page
-        $redirectUrl = isset($_SESSION['previous_page']) ? $_SESSION['previous_page'] : 'index.php';
+        $redirectUrl = $_SESSION['previous_page'] ?? 'index.php';
         unset($_SESSION['previous_page']);
         header('Location: ' . $redirectUrl);
         exit();
 
-    } catch (\Exception $e) {
+    } catch (Exception $e) {
         $_SESSION["error"] = $e->getMessage();
     }
 }
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login - Music App</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/auth_style.css">
-    <link rel="stylesheet" href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="button-front">Login</span>
             </button>
         </div>
-        <a href="index.php" class="auth-link"><span class="fa fa-arrow-left" aria-hidden="true"></span> Back to Home</a>
+        <a href="<?php echo isset($_SESSION['previous_page']) ? htmlspecialchars($_SESSION['previous_page']) : 'index.php'; ?>" class="auth-link"><span class="fa fa-arrow-left" aria-hidden="true"></span> Go back</a>
     </form>
     <p>Don't have an account? <a href="register.php">Register here</a></p>
 </div>
